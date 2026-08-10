@@ -25,6 +25,7 @@ document.getElementById("openModalBtn").onclick = () => authModal.style.display 
 document.querySelector(".close").onclick = () => authModal.style.display = "none";
 document.querySelector(".close-upload").onclick = () => uploadModal.style.display = "none";
 
+// Şifreli Giriş İşlemi
 document.getElementById("loginForm").onsubmit = (e) => {
     e.preventDefault();
     const selectedChar = document.getElementById("characterSelect").value;
@@ -60,6 +61,7 @@ function saveProfilesData(data) {
     localStorage.setItem("claws_profiles", JSON.stringify(data));
 }
 
+// Profil Kaydetme
 document.getElementById("saveProfileBtn").onclick = () => {
     const img = document.getElementById("profileImgUrl").value;
     const bio = document.getElementById("characterBio").value;
@@ -81,6 +83,7 @@ function saveVideosData(data) {
     localStorage.setItem("claws_videos", JSON.stringify(data));
 }
 
+// Video Yükleme
 document.getElementById("uploadBtn").onclick = () => {
     const title = document.getElementById("videoTitle").value;
     const url = document.getElementById("videoUrl").value;
@@ -135,6 +138,7 @@ function deleteVideo(user, index) {
     renderChannels();
 }
 
+// Tüm Kartları Ekrana Basma
 function renderChannels() {
     const grid = document.getElementById("channelsGrid");
     grid.innerHTML = "";
