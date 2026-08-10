@@ -3,34 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claws Group - Video Kanalları</title>
+    <title>Claws Group - FiveM Anı ve Hikaye Arşivi</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- ANA EKRAN / KANALLAR -->
         <header>
-            <h1>CLAWS GROUP CHANNELS</h1>
-            <p>Özel Video Arşivi ve Kanal Yönetim Sistemi</p>
+            <h1>CLAWS GROUP LORE & MEMORY</h1>
+            <p>FiveM Karakter Anı, Hikaye ve Video Arşivi</p>
         </header>
 
         <!-- Giriş ve Panel Butonu -->
         <div class="auth-bar">
-            <button id="openModalBtn" class="btn-cyber">🔐 Üye Giriş / Yükleme Paneli</button>
+            <button id="openModalBtn" class="btn-cyber">🔐 Karakter Girişi / Panel</button>
         </div>
 
         <!-- Kanal Kartları Listesi -->
         <div class="channels-grid" id="channelsGrid">
-            <!-- JavaScript ile otomatik doldurulacak -->
+            <!-- JavaScript ile doldurulacak -->
         </div>
     </div>
 
-    <!-- GİRİŞ MODALI (TERMINAL) -->
+    <!-- GİRİŞ MODALI -->
     <div id="authModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>TERMINAL ACCESS</h2>
-            <p>Lütfen karakterinizi seçin ve şifrenizi girin:</p>
+            <p>Karakterini seç ve şifreni gir:</p>
             
             <form id="loginForm">
                 <select id="characterSelect" required>
@@ -50,22 +50,33 @@
         </div>
     </div>
 
-    <!-- VİDEO YÜKLEME PANELİ -->
+    <!-- KARAKTER YÖNETİM PANELİ (Profil, Hikaye ve Video) -->
     <div id="uploadModal" class="modal">
         <div class="modal-content wide">
             <span class="close-upload">&times;</span>
-            <h2 id="panelTitle">Kanal Paneli</h2>
-            <p>Kanalınıza yeni bir video yükleyin veya mevcut videolarınızı yönetin.</p>
+            <h2 id="panelTitle">Karakter Paneli</h2>
+            <p>Profil yüzünü, hikayeni ve videolarını buradan yönetebilirsin.</p>
             
-            <div class="upload-section">
-                <h3>Video Ekle</h3>
-                <input type="text" id="videoTitle" placeholder="Video Başlığı...">
-                <input type="url" id="videoUrl" placeholder="Video Linki (örn: Cloudinary veya doğrudan MP4 linki)...">
-                <button id="uploadBtn" class="btn-cyber">Videoyu Yükle / Kaydet</button>
+            <!-- Profil Düzenleme Alanı -->
+            <div class="panel-section">
+                <h3>Karakter Profilini Düzenle</h3>
+                <input type="url" id="profileImgUrl" placeholder="Profil Fotoğrafı (Yüz) Linki (örn: Imgur veya görsel linki)...">
+                <textarea id="characterBio" placeholder="Karakter Hikayesi / Biyografisi..." rows="3"></textarea>
+                <button id="saveProfileBtn" class="btn-cyber">Profili Kaydet</button>
+            </div>
+
+            <hr style="border-color: #1f2937; margin: 20px 0;">
+
+            <!-- Video Ekleme Alanı -->
+            <div class="panel-section">
+                <h3>Yeni Anı / Video Ekle</h3>
+                <input type="text" id="videoTitle" placeholder="Video / Anı Başlığı...">
+                <input type="url" id="videoUrl" placeholder="Video Linki (MP4 veya doğrudan video linki)...">
+                <button id="uploadBtn" class="btn-cyber">Anıyı Ekle</button>
             </div>
 
             <div class="my-videos-section">
-                <h3>Yüklediğiniz Videolar</h3>
+                <h3>Yüklediğin Anılar / Videolar</h3>
                 <div id="myVideosList" class="video-list-mini"></div>
             </div>
         </div>
