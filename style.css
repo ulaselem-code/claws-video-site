@@ -5,72 +5,156 @@
 }
 
 body {
-    /* Ağır mafyasal / karanlık siber arkaplan */
     background-color: #05070a;
-    background-image: 
-        radial-gradient(circle at 50% 20%, rgba(20, 25, 40, 0.6) 0%, rgba(5, 7, 10, 0.95) 100%),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 0, transparent 50px);
     color: #c0cbdc;
     min-height: 100vh;
-    padding: 30px 20px;
     font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+/* --- HERO SECTION (GİRİŞ EKRANI) --- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    min-height: 500px;
+    /* Arkaplan görseli (Buraya kendi FiveM/Mafya duvar kağıdı linkini koyabilirsin) */
+    background: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-bottom: 2px solid #e2b714;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Karanlık dumanlı gradyan karartma */
+    background: radial-gradient(circle at center, rgba(5, 7, 10, 0.4) 0%, rgba(5, 7, 10, 0.95) 100%),
+                linear-gradient(to bottom, transparent 60%, #05070a 100%);
+    z-index: 1;
+}
+
+.hero-content {
     position: relative;
     z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 40px;
+.logo-box {
+    margin-bottom: 20px;
 }
 
-header h1 {
+.logo-box img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 3px solid #e2b714;
+    box-shadow: 0 0 25px rgba(226, 183, 20, 0.5);
+    object-fit: cover;
+    background: #000;
+}
+
+.hero-content h1 {
     font-family: 'Cinzel', serif;
-    color: #e2b714; /* Ağır mafyasal altın sarısı */
-    letter-spacing: 4px;
-    font-size: 3rem;
-    text-shadow: 0 0 20px rgba(226, 183, 20, 0.4);
-    margin-bottom: 5px;
+    font-size: 3.2rem;
+    color: #ffffff;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(0,0,0,0.8), 0 0 10px rgba(226, 183, 20, 0.3);
+    margin-bottom: 10px;
 }
 
-header p {
+.hero-subtitle {
     font-family: 'Share Tech Mono', monospace;
-    color: #ff3333; /* Tehlikeli kırmızı vurgu */
-    letter-spacing: 2px;
-    font-size: 0.95rem;
-}
-
-.auth-bar {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 25px;
-}
-
-/* Siber Buton Tasarımı */
-.btn-cyber {
-    background: rgba(10, 15, 25, 0.9);
     color: #e2b714;
-    border: 1px solid #e2b714;
-    padding: 12px 24px;
-    cursor: pointer;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-hero {
+    padding: 14px 28px;
     font-family: 'Share Tech Mono', monospace;
+    font-size: 1rem;
     font-weight: bold;
     letter-spacing: 1px;
-    transition: 0.3s;
-    border-radius: 2px;
-    box-shadow: inset 0 0 10px rgba(226, 183, 20, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.btn-cyber:hover {
+.btn-hero.primary {
     background: #e2b714;
     color: #05070a;
-    box-shadow: 0 0 20px rgba(226, 183, 20, 0.8);
+    border: 1px solid #e2b714;
+    box-shadow: 0 0 15px rgba(226, 183, 20, 0.4);
 }
 
+.btn-hero.primary:hover {
+    background: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.btn-hero.secondary {
+    background: rgba(10, 15, 25, 0.8);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.btn-hero.secondary:hover {
+    border-color: #e2b714;
+    color: #e2b714;
+    box-shadow: 0 0 15px rgba(226, 183, 20, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- ANA İÇERİK ALANI --- */
+.main-container {
+    max-width: 1200px;
+    margin: -40px auto 50px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 3;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-header h2 {
+    font-family: 'Cinzel', serif;
+    color: #e2b714;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+}
+
+.section-header .line {
+    width: 60px;
+    height: 3px;
+    background: #e2b714;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* GRID KARTLARI */
 .channels-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -78,13 +162,19 @@ header p {
 }
 
 .channel-card {
-    background: rgba(11, 16, 26, 0.85);
+    background: rgba(11, 16, 26, 0.9);
     border: 1px solid rgba(226, 183, 20, 0.2);
-    border-top: 2px solid #e2b714;
-    border-radius: 4px;
+    border-top: 3px solid #e2b714;
+    border-radius: 6px;
     padding: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-    backdrop-filter: blur(5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.channel-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(226, 183, 20, 0.5);
 }
 
 .character-header {
@@ -118,7 +208,6 @@ header p {
     color: #8a99ad;
     margin-top: 4px;
     line-height: 1.4;
-    font-family: 'Rajdhani', sans-serif;
 }
 
 .video-item {
@@ -128,19 +217,19 @@ header p {
 .video-item video {
     width: 100%;
     height: 170px;
-    border-radius: 2px;
+    border-radius: 4px;
     background: #000;
     border: 1px solid rgba(255,255,255,0.1);
 }
 
 .video-item p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-top: 6px;
     color: #d1d9e6;
     font-family: 'Share Tech Mono', monospace;
 }
 
-/* Modal ve Siber Terminal Tasarımı */
+/* --- MODAL & TERMINAL PANEL --- */
 .modal {
     display: none;
     position: fixed;
@@ -158,7 +247,7 @@ header p {
 .cyber-terminal {
     background: #080c14;
     border: 1px solid #e2b714;
-    width: 100%;
+    width: 90%;
     max-width: 450px;
     border-radius: 6px;
     box-shadow: 0 0 40px rgba(226, 183, 20, 0.25);
@@ -173,7 +262,7 @@ header p {
 
 .terminal-header {
     background: #111826;
-    padding: 10px 15px;
+    padding: 12px 15px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(226, 183, 20, 0.2);
@@ -195,7 +284,6 @@ header p {
     font-size: 0.8rem;
     color: #8a99ad;
     margin-left: 10px;
-    letter-spacing: 1px;
 }
 
 .close, .close-upload {
@@ -203,7 +291,6 @@ header p {
     font-size: 1.2rem;
     color: #ff5f56;
     cursor: pointer;
-    font-family: monospace;
 }
 
 .terminal-body {
@@ -215,7 +302,6 @@ header p {
     color: #e2b714;
     font-size: 1.4rem;
     margin-bottom: 5px;
-    letter-spacing: 1px;
 }
 
 .terminal-sub {
@@ -235,7 +321,6 @@ header p {
     font-size: 0.75rem;
     color: #e2b714;
     margin-bottom: 5px;
-    letter-spacing: 1px;
 }
 
 .modal select, .modal input, .modal textarea {
@@ -267,7 +352,6 @@ header p {
     font-size: 1rem;
     cursor: pointer;
     border-radius: 3px;
-    letter-spacing: 1px;
     transition: 0.3s;
     margin-top: 10px;
 }
