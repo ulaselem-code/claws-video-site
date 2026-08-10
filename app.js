@@ -33,9 +33,8 @@ document.getElementById("loginForm").onsubmit = (e) => {
     if (characterPasswords[selectedChar] === passwordInput) {
         currentLoggedInUser = selectedChar;
         authModal.style.display = "none";
-        document.getElementById("panelTitle").innerText = `${selectedChar} - Yönetim Paneli`;
+        document.getElementById("panelTitle").innerText = `${selectedChar} // TERMINAL PANEL`;
         
-        // Mevcut profil bilgilerini doldur
         let profiles = getProfilesData();
         if(profiles[selectedChar]) {
             document.getElementById("profileImgUrl").value = profiles[selectedChar].img || "";
@@ -48,11 +47,10 @@ document.getElementById("loginForm").onsubmit = (e) => {
         uploadModal.style.display = "flex";
         loadMyVideos();
     } else {
-        alert("Hatalı Şifre!");
+        alert("KRİTİK HATA: Geçersiz Erişim Şifresi!");
     }
 };
 
-// Profilleri Saklama
 function getProfilesData() {
     const data = localStorage.getItem("claws_profiles");
     return data ? JSON.parse(data) : {};
@@ -71,10 +69,9 @@ document.getElementById("saveProfileBtn").onclick = () => {
     saveProfilesData(profiles);
 
     renderChannels();
-    alert("Karakter profili güncellendi!");
+    alert("Operatör profili başarıyla güncellendi.");
 };
 
-// Videoları Saklama
 function getVideosData() {
     const data = localStorage.getItem("claws_videos");
     return data ? JSON.parse(data) : {};
@@ -89,7 +86,7 @@ document.getElementById("uploadBtn").onclick = () => {
     const url = document.getElementById("videoUrl").value;
 
     if (!title || !url) {
-        alert("Lütfen başlık ve video linkini doldurun!");
+        alert("Lütfen tüm alanları doldurun!");
         return;
     }
 
@@ -106,7 +103,7 @@ document.getElementById("uploadBtn").onclick = () => {
     
     loadMyVideos();
     renderChannels();
-    alert("Anı/Video başarıyla eklendi!");
+    alert("Anı arşive işlendi.");
 };
 
 function loadMyVideos() {
@@ -116,15 +113,15 @@ function loadMyVideos() {
     let userVids = allVideos[currentLoggedInUser] || [];
 
     if (userVids.length === 0) {
-        listDiv.innerHTML = "<p style='color:#8892b0;'>Henüz anı eklenmemiş.</p>";
+        listDiv.innerHTML = "<p style='color:#556677;'>Kayıt bulunamadı.</p>";
         return;
     }
 
     userVids.forEach((vid, index) => {
         listDiv.innerHTML += `
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                <span>${vid.title}</span>
-                <button onclick="deleteVideo('${currentLoggedInUser}', ${index})" style="background:red; color:white; border:none; padding:3px 8px; cursor:pointer; border-radius:3px;">Sil</button>
+                <span>> ${vid.title}</span>
+                <button onclick="deleteVideo('${currentLoggedInUser}', ${index})" style="background:#ff5f56; color:white; border:none; padding:2px 8px; cursor:pointer; border-radius:2px; font-family:monospace;">[SİL]</button>
             </div>
         `;
     });
@@ -145,18 +142,18 @@ function renderChannels() {
     let profiles = getProfilesData();
 
     characters.forEach(char => {
-        let profile = profiles[char] || { img: "https://via.placeholder.com/70", bio: "Henüz bir hikaye yazılmadı..." };
+        let profile = profiles[char] || { img: "https://via.placeholder.com/70", bio: "Yeraltı kayıtlarında veri bulunamadı..." };
         let avatarImg = profile.img ? profile.img : "https://via.placeholder.com/70";
-        let bioText = profile.bio ? profile.bio : "Hikaye eklenmedi.";
+        let bioText = profile.bio ? profile.bio : "Veri yok.";
 
         let vids = allVideos[char] || [];
-        let vidsHtml = vids.length === 0 ? "<p style='color:#64748b; font-size:0.9rem;'>Bu karakterin henüz anısı yok.</p>" : "";
+        let vidsHtml = vids.length === 0 ? "<p style='color:#4a5568; font-size:0.85rem; font-family:monospace;'>// Bu kanalda henüz kayıtlı anı yok.</p>" : "";
 
         vids.forEach(v => {
             vidsHtml += `
                 <div class="video-item">
                     <video controls src="${v.url}"></video>
-                    <p><strong>${v.title}</strong></p>
+                    <p>> ${v.title}</p>
                 </div>
             `;
         });
