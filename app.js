@@ -1,153 +1,134 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+const characterPasswords = {
+    "Boris Claws": "1234",
+    "Luna Claws": "1234",
+    "Mark Claws": "1234",
+    "Geralt Claws": "1234",
+    "Beric Max": "1234",
+    "Nolan Claws": "1234",
+    "7. Karakter": "1234"
+};
+
+const characters = [
+    "Boris Claws", "Luna Claws", "Mark Claws", 
+    "Geralt Claws", "Beric Max", "Nolan Claws", "7. Karakter"
+];
+
+let currentLoggedInUser = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderChannels();
+});
+
+const authModal = document.getElementById("authModal");
+const uploadModal = document.getElementById("uploadModal");
+document.getElementById("openModalBtn").onclick = () => authModal.style.display = "flex";
+document.querySelector(".close").onclick = () => authModal.style.display = "none";
+document.querySelector(".close-upload").onclick = () => uploadModal.style.display = "none";
+
+document.getElementById("loginForm").onsubmit = (e) => {
+    e.preventDefault();
+    const selectedChar = document.getElementById("characterSelect").value;
+    const passwordInput = document.getElementById("characterPassword").value;
+
+    if (characterPasswords[selectedChar] === passwordInput) {
+        currentLoggedInUser = selectedChar;
+        authModal.style.display = "none";
+        document.getElementById("panelTitle").innerText = `${selectedChar} - Kanal Paneli`;
+        uploadModal.style.display = "flex";
+        loadMyVideos();
+    } else {
+        alert("Hatalı Şifre!");
+    }
+};
+
+function getVideosData() {
+    const data = localStorage.getItem("claws_videos");
+    return data ? JSON.parse(data) : {};
 }
 
-body {
-    background-color: #0b0f19;
-    color: #e0e6ed;
-    min-height: 100vh;
-    padding: 20px;
+function saveVideosData(data) {
+    localStorage.setItem("claws_videos", JSON.stringify(data));
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+document.getElementById("uploadBtn").onclick = () => {
+    const title = document.getElementById("videoTitle").value;
+    const url = document.getElementById("videoUrl").value;
+
+    if (!title || !url) {
+        alert("Lütfen başlık ve video linkini doldurun!");
+        return;
+    }
+
+    let allVideos = getVideosData();
+    if (!allVideos[currentLoggedInUser]) {
+        allVideos[currentLoggedInUser] = [];
+    }
+
+    allVideos[currentLoggedInUser].push({ title, url });
+    saveVideosData(allVideos);
+
+    document.getElementById("videoTitle").value = "";
+    document.getElementById("videoUrl").value = "";
+    
+    loadMyVideos();
+    renderChannels();
+    alert("Video başarıyla eklendi!");
+};
+
+function loadMyVideos() {
+    const listDiv = document.getElementById("myVideosList");
+    listDiv.innerHTML = "";
+    let allVideos = getVideosData();
+    let userVids = allVideos[currentLoggedInUser] || [];
+
+    if (userVids.length === 0) {
+        listDiv.innerHTML = "<p style='color:#8892b0;'>Henüz video yüklenmemiş.</p>";
+        return;
+    }
+
+    userVids.forEach((vid, index) => {
+        listDiv.innerHTML += `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span>${vid.title}</span>
+                <button onclick="deleteVideo('${currentLoggedInUser}', ${index})" style="background:red; color:white; border:none; padding:3px 8px; cursor:pointer; border-radius:3px;">Sil</button>
+            </div>
+        `;
+    });
 }
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
+function deleteVideo(user, index) {
+    let allVideos = getVideosData();
+    allVideos[user].splice(index, 1);
+    saveVideosData(allVideos);
+    loadMyVideos();
+    renderChannels();
 }
 
-header h1 {
-    color: #00ffcc;
-    letter-spacing: 2px;
-    font-size: 2.5rem;
-    margin-bottom: 5px;
-}
+function renderChannels() {
+    const grid = document.getElementById("channelsGrid");
+    grid.innerHTML = "";
+    let allVideos = getVideosData();
 
-header p {
-    color: #8892b0;
-}
+    characters.forEach(char => {
+        let vids = allVideos[char] || [];
+        let vidsHtml = vids.length === 0 ? "<p style='color:#64748b; font-size:0.9rem;'>Bu kanalda henüz video yok.</p>" : "";
 
-.auth-bar {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
+        vids.forEach(v => {
+            vidsHtml += `
+                <div class="video-item">
+                    <video controls src="${v.url}"></video>
+                    <p><strong>${v.title}</strong></p>
+                </div>
+            `;
+        });
 
-.btn-cyber {
-    background: transparent;
-    color: #00ffcc;
-    border: 2px solid #00ffcc;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-    border-radius: 4px;
-}
-
-.btn-cyber:hover {
-    background: #00ffcc;
-    color: #0b0f19;
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
-}
-
-.channels-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.channel-card {
-    background: #111827;
-    border: 1px solid #1f2937;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
-
-.channel-card h3 {
-    color: #38bdf8;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #1f2937;
-    padding-bottom: 10px;
-}
-
-.video-item {
-    margin-bottom: 15px;
-}
-
-.video-item video {
-    width: 100%;
-    height: 160px;
-    border-radius: 4px;
-    background: #000;
-}
-
-.video-item p {
-    font-size: 0.9rem;
-    margin-top: 5px;
-    color: #cbd5e1;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: #111827;
-    border: 1px solid #00ffcc;
-    padding: 30px;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-    position: relative;
-}
-
-.modal-content.wide {
-    max-width: 600px;
-}
-
-.close, .close-upload {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 1.5rem;
-    color: #aaa;
-    cursor: pointer;
-}
-
-.close:hover, .close-upload:hover {
-    color: #fff;
-}
-
-.modal select, .modal input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background: #0b0f19;
-    border: 1px solid #374151;
-    color: #fff;
-    border-radius: 4px;
-}
-
-.video-list-mini {
-    max-height: 150px;
-    overflow-y: auto;
-    margin-top: 10px;
-    border-top: 1px solid #374151;
-    padding-top: 10px;
+        grid.innerHTML += `
+            <div class="channel-card">
+                <h3>📺 ${char} Kanalı</h3>
+                <div class="channel-videos">
+                    ${vidsHtml}
+                </div>
+            </div>
+        `;
+    });
 }
