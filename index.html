@@ -5,30 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLAWS GROUP // UNDERGROUND ARCHIVE</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts - Daha havalı fontlar için -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Arkaplan Karartma ve Doku Efekti -->
-    <div class="bg-overlay"></div>
 
-    <div class="container">
-        <!-- ANA EKRAN / KANALLAR -->
-        <header>
-            <h1>CLAWS GROUP</h1>
-            <p>// UNDERGROUND LORE & MEMORY ARCHIVE //</p>
-        </header>
+    <!-- HERO SECTION (GÖRKEMLİ GİRİŞ EKRANI) -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <!-- Merkez Logo -->
+            <div class="logo-box">
+                <img src="https://via.placeholder.com/120" alt="Claws Logo" id="serverLogo">
+            </div>
+            
+            <h1>Welcome to Claws Group</h1>
+            <p class="hero-subtitle">The Underground Roleplay & Memory Experience</p>
 
-        <!-- Giriş ve Panel Butonu -->
-        <div class="auth-bar">
-            <button id="openModalBtn" class="btn-cyber">⚡ SECURE TERMINAL ACCESS</button>
+            <!-- Aksiyon Butonları -->
+            <div class="hero-buttons">
+                <button id="openModalBtn" class="btn-hero primary">⚡ PANEL GİRİŞİ</button>
+                <a href="#" class="btn-hero secondary">DISCORD'A KATIL</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- İÇERİK ALANI (KARAKTER KARTLARI) -->
+    <main class="main-container">
+        <div class="section-header">
+            <h2>OPERATÖR ARŞİVİ</h2>
+            <div class="line"></div>
         </div>
 
-        <!-- Kanal Kartları Listesi -->
         <div class="channels-grid" id="channelsGrid">
-            <!-- JavaScript ile doldurulacak -->
+            <!-- JavaScript (app.js) dinamik olarak dolduracak -->
         </div>
-    </div>
+    </main>
 
     <!-- SİBER / MAFYASAL GİRİŞ TERMİNALİ (MODAL) -->
     <div id="authModal" class="modal">
@@ -89,8 +101,8 @@
                 <!-- Profil Düzenleme Alanı -->
                 <div class="panel-section">
                     <h3>[01] Profil Fotoğrafı ve Hikaye</h3>
-                    <input type="url" id="profileImgUrl" placeholder="Profil Fotoğrafı Linki (Doğrudan görsel uzantılı .jpg/.png)...">
-                    <textarea id="characterBio" placeholder="Karakter Hikayesi / Yeraltı Biyografisi..." rows="3"></textarea>
+                    <input type="url" id="profileImgUrl" placeholder="Profil Fotoğrafı Linki (.jpg/.png)...">
+                    <textarea id="characterBio" placeholder="Karakter Hikayesi / Biyografisi..." rows="3"></textarea>
                     <button id="saveProfileBtn" class="btn-cyber-glow">PROFİLİ KAYDET</button>
                 </div>
 
