@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claws Group - Video Kanalları</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ANA EKRAN / KANALLAR -->
+        <header>
+            <h1>CLAWS GROUP CHANNELS</h1>
+            <p>Özel Video Arşivi ve Kanal Yönetim Sistemi</p>
+        </header>
+
+        <!-- Giriş ve Panel Butonu -->
+        <div class="auth-bar">
+            <button id="openModalBtn" class="btn-cyber">🔐 Üye Giriş / Yükleme Paneli</button>
+        </div>
+
+        <!-- Kanal Kartları Listesi -->
+        <div class="channels-grid" id="channelsGrid">
+            <!-- JavaScript ile otomatik doldurulacak -->
+        </div>
+    </div>
+
+    <!-- GİRİŞ MODALI (TERMINAL) -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>TERMINAL ACCESS</h2>
+            <p>Lütfen karakterinizi seçin ve şifrenizi girin:</p>
+            
+            <form id="loginForm">
+                <select id="characterSelect" required>
+                    <option value="" disabled selected>Karakter Seçin...</option>
+                    <option value="Boris Claws">Boris Claws</option>
+                    <option value="Luna Claws">Luna Claws</option>
+                    <option value="Mark Claws">Mark Claws</option>
+                    <option value="Geralt Claws">Geralt Claws</option>
+                    <option value="Beric Max">Beric Max</option>
+                    <option value="Nolan Claws">Nolan Claws</option>
+                    <option value="7. Karakter">7. Karakter</option>
+                </select>
+
+                <input type="password" id="characterPassword" placeholder="Şifre Girin..." required>
+                <button type="submit" class="btn-cyber">SİSTEME GİRİŞ</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- VİDEO YÜKLEME PANELİ -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content wide">
+            <span class="close-upload">&times;</span>
+            <h2 id="panelTitle">Kanal Paneli</h2>
+            <p>Kanalınıza yeni bir video yükleyin veya mevcut videolarınızı yönetin.</p>
+            
+            <div class="upload-section">
+                <h3>Video Ekle</h3>
+                <input type="text" id="videoTitle" placeholder="Video Başlığı...">
+                <input type="url" id="videoUrl" placeholder="Video Linki (örn: Cloudinary veya doğrudan MP4 linki)...">
+                <button id="uploadBtn" class="btn-cyber">Videoyu Yükle / Kaydet</button>
+            </div>
+
+            <div class="my-videos-section">
+                <h3>Yüklediğiniz Videolar</h3>
+                <div id="myVideosList" class="video-list-mini"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
