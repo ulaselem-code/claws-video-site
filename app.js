@@ -33,7 +33,18 @@ document.getElementById("loginForm").onsubmit = (e) => {
     if (characterPasswords[selectedChar] === passwordInput) {
         currentLoggedInUser = selectedChar;
         authModal.style.display = "none";
-        document.getElementById("panelTitle").innerText = `${selectedChar} - Kanal Paneli`;
+        document.getElementById("panelTitle").innerText = `${selectedChar} - Yönetim Paneli`;
+        
+        // Mevcut profil bilgilerini doldur
+        let profiles = getProfilesData();
+        if(profiles[selectedChar]) {
+            document.getElementById("profileImgUrl").value = profiles[selectedChar].img || "";
+            document.getElementById("characterBio").value = profiles[selectedChar].bio || "";
+        } else {
+            document.getElementById("profileImgUrl").value = "";
+            document.getElementById("characterBio").value = "";
+        }
+
         uploadModal.style.display = "flex";
         loadMyVideos();
     } else {
@@ -41,6 +52,29 @@ document.getElementById("loginForm").onsubmit = (e) => {
     }
 };
 
+// Profilleri Saklama
+function getProfilesData() {
+    const data = localStorage.getItem("claws_profiles");
+    return data ? JSON.parse(data) : {};
+}
+
+function saveProfilesData(data) {
+    localStorage.setItem("claws_profiles", JSON.stringify(data));
+}
+
+document.getElementById("saveProfileBtn").onclick = () => {
+    const img = document.getElementById("profileImgUrl").value;
+    const bio = document.getElementById("characterBio").value;
+
+    let profiles = getProfilesData();
+    profiles[currentLoggedInUser] = { img, bio };
+    saveProfilesData(profiles);
+
+    renderChannels();
+    alert("Karakter profili güncellendi!");
+};
+
+// Videoları Saklama
 function getVideosData() {
     const data = localStorage.getItem("claws_videos");
     return data ? JSON.parse(data) : {};
@@ -72,7 +106,7 @@ document.getElementById("uploadBtn").onclick = () => {
     
     loadMyVideos();
     renderChannels();
-    alert("Video başarıyla eklendi!");
+    alert("Anı/Video başarıyla eklendi!");
 };
 
 function loadMyVideos() {
@@ -82,7 +116,7 @@ function loadMyVideos() {
     let userVids = allVideos[currentLoggedInUser] || [];
 
     if (userVids.length === 0) {
-        listDiv.innerHTML = "<p style='color:#8892b0;'>Henüz video yüklenmemiş.</p>";
+        listDiv.innerHTML = "<p style='color:#8892b0;'>Henüz anı eklenmemiş.</p>";
         return;
     }
 
@@ -108,10 +142,15 @@ function renderChannels() {
     const grid = document.getElementById("channelsGrid");
     grid.innerHTML = "";
     let allVideos = getVideosData();
+    let profiles = getProfilesData();
 
     characters.forEach(char => {
+        let profile = profiles[char] || { img: "https://via.placeholder.com/70", bio: "Henüz bir hikaye yazılmadı..." };
+        let avatarImg = profile.img ? profile.img : "https://via.placeholder.com/70";
+        let bioText = profile.bio ? profile.bio : "Hikaye eklenmedi.";
+
         let vids = allVideos[char] || [];
-        let vidsHtml = vids.length === 0 ? "<p style='color:#64748b; font-size:0.9rem;'>Bu kanalda henüz video yok.</p>" : "";
+        let vidsHtml = vids.length === 0 ? "<p style='color:#64748b; font-size:0.9rem;'>Bu karakterin henüz anısı yok.</p>" : "";
 
         vids.forEach(v => {
             vidsHtml += `
@@ -124,7 +163,13 @@ function renderChannels() {
 
         grid.innerHTML += `
             <div class="channel-card">
-                <h3>📺 ${char} Kanalı</h3>
+                <div class="character-header">
+                    <img src="${avatarImg}" alt="${char}" class="character-avatar">
+                    <div class="character-info">
+                        <h3>${char}</h3>
+                        <p class="character-bio">${bioText}</p>
+                    </div>
+                </div>
                 <div class="channel-videos">
                     ${vidsHtml}
                 </div>
