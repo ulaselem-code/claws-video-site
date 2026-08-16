@@ -1,129 +1,118 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLAWS GROUP // UNDERGROUND ARCHIVE</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Cinzel:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLAWS GROUP // UNDERGROUND ROLEPLAY & MEMORY EXPERIENCE</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- HERO SECTION (GÖRKEMLİ GİRİŞ EKRANI) -->
-    <section class="hero-section">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <!-- Merkez Logo -->
-            <div class="logo-box">
-                <img src="https://via.placeholder.com/120" alt="Claws Logo" id="serverLogo">
-            </div>
-            
-            <h1>Welcome to Claws Group</h1>
-            <p class="hero-subtitle">The Underground Roleplay & Memory Experience</p>
-
-            <!-- Aksiyon Butonları -->
-            <div class="hero-buttons">
-                <button id="openModalBtn" class="btn-hero primary">⚡ PANEL GİRİŞİ</button>
-                <a href="#" class="btn-hero secondary">DISCORD'A KATIL</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- İÇERİK ALANI (KARAKTER KARTLARI) -->
-    <main class="main-container">
-        <div class="section-header">
-            <h2>OPERATÖR ARŞİVİ</h2>
-            <div class="line"></div>
-        </div>
-
-        <div class="channels-grid" id="channelsGrid">
-            <!-- JavaScript (app.js) dinamik olarak dolduracak -->
-        </div>
-    </main>
-
-    <!-- SİBER / MAFYASAL GİRİŞ TERMİNALİ (MODAL) -->
-    <div id="authModal" class="modal">
-        <div class="modal-content cyber-terminal">
-            <div class="terminal-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="terminal-title">ACCESS_CONTROL_v4.2</span>
-                <span class="close">&times;</span>
-            </div>
-            
-            <div class="terminal-body">
-                <h2>RESTRICTED AREA</h2>
-                <p class="terminal-sub">Kimlik doğrulama protokolü aktif. Kimliğini seç ve şifreni gir.</p>
-                
-                <form id="loginForm">
-                    <div class="input-group">
-                        <label>KAYITLI OPERATÖR</label>
-                        <select id="characterSelect" required>
-                            <option value="" disabled selected>-- BİR KİMLİK SEÇİN --</option>
-                            <option value="Boris Claws">Boris Claws</option>
-                            <option value="Luna Claws">Luna Claws</option>
-                            <option value="Mark Claws">Mark Claws</option>
-                            <option value="Geralt Claws">Geralt Claws</option>
-                            <option value="Beric Max">Beric Max</option>
-                            <option value="Nolan Claws">Nolan Claws</option>
-                            <option value="7. Karakter">7. Karakter</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>ERİŞİM ŞİFRESİ</label>
-                        <input type="password" id="characterPassword" placeholder="••••••••••••" required>
-                    </div>
-
-                    <button type="submit" class="btn-cyber-glow">SİSTEME BAĞLAN [CONNECT]</button>
-                </form>
-            </div>
-        </div>
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="logo-container">
+      <span class="logo-badge">Claws Logo</span>
     </div>
-
-    <!-- KARAKTER YÖNETİM PANELİ -->
-    <div id="uploadModal" class="modal">
-        <div class="modal-content wide cyber-terminal">
-            <div class="terminal-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="terminal-title">OPERATIVE_MANAGEMENT_PANEL</span>
-                <span class="close-upload">&times;</span>
-            </div>
-
-            <div class="terminal-body">
-                <h2 id="panelTitle">Kanal Paneli</h2>
-                <p class="terminal-sub">Ağ protokolü üzerinden verilerini güncelle.</p>
-                
-                <!-- Profil Düzenleme Alanı -->
-                <div class="panel-section">
-                    <h3>[01] Profil Fotoğrafı ve Hikaye</h3>
-                    <input type="url" id="profileImgUrl" placeholder="Profil Fotoğrafı Linki (.jpg/.png)...">
-                    <textarea id="characterBio" placeholder="Karakter Hikayesi / Biyografisi..." rows="3"></textarea>
-                    <button id="saveProfileBtn" class="btn-cyber-glow">PROFİLİ KAYDET</button>
-                </div>
-
-                <hr class="cyber-line">
-
-                <!-- Video Ekleme Alanı -->
-                <div class="panel-section">
-                    <h3>[02] Yeni Anı / Dosya Yükle</h3>
-                    <input type="text" id="videoTitle" placeholder="Anı / Dosya Adı...">
-                    <input type="url" id="videoUrl" placeholder="Video Linki (MP4)...">
-                    <button id="uploadBtn" class="btn-cyber-glow">DOSYAYI ARŞİVE İŞLE</button>
-                </div>
-
-                <div class="my-videos-section">
-                    <h3>[03] Kayıtlı Dosyalarım</h3>
-                    <div id="myVideosList" class="video-list-mini"></div>
-                </div>
-            </div>
-        </div>
+    <h1 class="main-title">WELCOME TO CLAWS GROUP</h1>
+    <p class="main-subtitle">THE UNDERGROUND ROLEPLAY & MEMORY EXPERIENCE</p>
+    
+    <div class="hero-buttons">
+      <button class="btn btn-primary" id="openModalBtn">⚡ PANEL GİRİŞİ</button>
+      <a href="https://discord.gg" target="_blank" class="btn btn-secondary">DISCORD'A KATIL</a>
     </div>
+  </header>
 
-    <script src="app.js"></script>
+  <!-- Cinematic Carousel Section -->
+  <section class="cinematic-section">
+    <h2 class="cinematic-title">CINEMATIC</h2>
+    <p class="cinematic-subtitle">EXPERIENCE</p>
+
+    <div class="carousel-container">
+      <button class="nav-btn prev-btn" id="prevBtn">&#10094;</button>
+
+      <div class="carousel-track-container">
+        <ul class="carousel-track" id="carouselTrack">
+          <li class="carousel-card">
+            <img src="https://via.placeholder.com/280x380/1a1a1a/e5a93c?text=Boris+Claws" alt="Boris Claws">
+            <div class="card-overlay"><span>Boris Claws</span></div>
+          </li>
+          <li class="carousel-card active">
+            <img src="https://via.placeholder.com/280x380/1a1a1a/e5a93c?text=Luna+Claws" alt="Luna Claws">
+            <div class="card-overlay"><span>Luna Claws</span></div>
+          </li>
+          <li class="carousel-card">
+            <img src="https://via.placeholder.com/280x380/1a1a1a/e5a93c?text=Mark+Claws" alt="Mark Claws">
+            <div class="card-overlay"><span>Mark Claws</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <button class="nav-btn next-btn" id="nextBtn">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Operatör Arşivi -->
+  <main class="archive-section">
+    <h2 class="archive-title">OPERATÖR ARŞİVİ</h2>
+    <div class="channels-grid" id="channelsGrid"></div>
+  </main>
+
+  <!-- Giriş Modalı -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>TERMINAL ERIŞIMI</h2>
+      <form id="loginForm">
+        <label for="characterSelect">Karakter Seçin:</label>
+        <select id="characterSelect">
+          <option value="Boris Claws">Boris Claws</option>
+          <option value="Luna Claws">Luna Claws</option>
+          <option value="Mark Claws">Mark Claws</option>
+          <option value="Geralt Claws">Geralt Claws</option>
+          <option value="Beric Max">Beric Max</option>
+          <option value="Nolan Claws">Nolan Claws</option>
+          <option value="7. Karakter">7. Karakter</option>
+        </select>
+
+        <label for="characterPassword">Şifre:</label>
+        <input type="password" id="characterPassword" placeholder="Şifrenizi girin..." required>
+
+        <button type="submit" class="btn btn-primary">GİRİŞ YAP</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Panel & Yükleme Modalı -->
+  <div id="uploadModal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close-upload">&times;</span>
+      <h2 id="panelTitle">TERMINAL PANEL</h2>
+
+      <div class="panel-section">
+        <h3>Profil Ayarları</h3>
+        <input type="text" id="profileImgUrl" placeholder="Profil Resim URL">
+        <textarea id="characterBio" placeholder="Karakter Biyografisi..."></textarea>
+        <button id="saveProfileBtn" class="btn btn-primary">Profili Kaydet</button>
+      </div>
+
+      <hr class="divider">
+
+      <div class="panel-section">
+        <h3>Yeni Anı / Video Yükle</h3>
+        <input type="text" id="videoTitle" placeholder="Video Başlığı">
+        <input type="text" id="videoUrl" placeholder="Video URL (.mp4 vb.)">
+        <button id="uploadBtn" class="btn btn-primary">Anıyı Arşive İşle</button>
+      </div>
+
+      <hr class="divider">
+
+      <div class="panel-section">
+        <h3>Mevcut Anılarınız</h3>
+        <div id="myVideosList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
