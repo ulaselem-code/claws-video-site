@@ -17,7 +17,36 @@ let currentLoggedInUser = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     renderChannels();
+    initCarousel();
 });
+
+// Cinematic Carousel Mantığı
+function initCarousel() {
+    const track = document.getElementById('carouselTrack');
+    const cards = Array.from(track ? track.children : []);
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+
+    if (!track || !nextBtn || !prevBtn) return;
+
+    let currentIndex = 1;
+
+    function updateCarousel(index) {
+        cards.forEach((card, i) => {
+            card.classList.toggle('active', i === index);
+        });
+    }
+
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex < cards.length - 1) ? currentIndex + 1 : 0;
+        updateCarousel(currentIndex);
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : cards.length - 1;
+        updateCarousel(currentIndex);
+    });
+}
 
 const authModal = document.getElementById("authModal");
 const uploadModal = document.getElementById("uploadModal");
